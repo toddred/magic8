@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <!-- Tell the browser it's a PWA -->
+<meta name="mobile-web-app-capable" content="yes">
+<!-- Tell iOS it's a PWA -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="manifest" href="manifest.json">
+        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="apple-touch-icon" sizes="180x180" href="480px-Magic_eight_ball.png">
+    </head>
+    <body>
+      <p>hello there World, its me marge</p>
+      <form id="myForm">
+        <input placeholder="enter your question here" />
+        <p id="answer">
+          if you whold have typed a question your answer would have been here
+        </p>
+        <button type="submit">Ask</button>
+      </form>
+      <script>
+        document.getElementById("myForm").addEventListener("submit", event => {
+          //alert("the answer is yes");
+    
+          let add = Math.floor(Math.random() * 100) % 2 ? "yes" : "no";
+          document.getElementById("answer").innerHTML = "The answer is " + add;
+          event.preventDefault();
+        });
+        if ("serviceWorker" in navigator) {
+          window.addEventListener("load", function() {
+            navigator.serviceWorker
+              .register("worker.js")
+              .then(
+                function(registration) {
+                  console.log("Worker registration successful", registration.scope);
+                },
+                function(err) {
+                  console.log("Worker registration failed", err);
+                }
+              )
+              .catch(function(err) {
+                console.log(err);
+              });
+          });
+        } else {
+          console.log("Service Worker is not supported by browser.");
+        }
+      </script>
+    </body>
+</html>
+
